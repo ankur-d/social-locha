@@ -1,0 +1,206 @@
+{% extends "base.html" %} {% load staticfiles %} {% block head %}
+	<link rel="stylesheet" href="{% static 'css/fb.css' %}">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script src="{% static 'js/fb_activity.js' %}"></script>
+	<script src="{% static 'js/chart.js' %}"></script>
+	<script type="text/javascript">
+      google.load('visualization', '1', {packages: ['corechart']});
+      google.load("visualization", "1", {packages:["treemap"]});
+      google.load('visualization', '1', { 'packages': ['map'] });
+      google.load('visualization', '1', { 'packages': ['table'] });
+    </script>
+    
+    
+<script>
+</script>
+{% endblock %} {% block content %}
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	<div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 pull-right"
+		style="position: relative;" data-spy="scroll"
+		data-target=".nav-sidebar">
+		<h1 class="page-header" style="position:fixed" id="page_head"></h1>
+		
+		<div id="pic_container"
+			class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-top:56px">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div id="cover">
+						<img id="cover_img"></img>
+					</div>
+					<div style="float: left; width: 100%; height:60px">
+						<div id="profile_pic">
+							<img id="profile_img"></img>
+						</div>
+						<div id="basic_info">
+							<div style="height: 51px; width: 100%">
+								<div id="birthday" class="basic" style="width:25%">
+									<img src="{% static 'images/birthday.png'%}" class="basic_image"></img>
+									<div id="birthday_content" class="basic_text"></div>
+								</div>
+								<div id="education" class="basic">
+									<img src="{% static 'images/education.png'%}"
+										class="basic_image"></img>
+									<div id="education_content" class="basic_text"></div>
+								</div>
+								<div id="work" class="basic" style="width: 40%">
+									<img src="{% static 'images/company.png'%}" class="basic_image" style="height:30px; width:30px; margin-top:10px"></img>
+									<div id="work_content" class="basic_text"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="post_container"
+			class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-top:125px">
+			<div class="panel panel-default">
+				<div class="panel-body height440">
+				
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="height:220px">
+						<div id="recent_posts" class="sub_content"></div>
+					</div>
+					
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="height:200px; padding-left:0px; padding-right:0px">
+						<div id="post_distribution" class="sub_content"></div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="height:200px; padding-left:0px; padding-right:0px">
+						<div id="top_tagger" class="sub_content"></div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3"style="height:200px; padding-left:0px; padding-right:0px">
+						<div id="top_liker" class="sub_content"></div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" style="height:200px; padding-left:0px; padding-right:0px">
+						<div id="top_commentor" class="sub_content"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="album_container"
+			class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-top:125px;">
+			
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			
+			  <ol class="carousel-indicators" style="position:relative; bottom:-3px">
+			    <li data-target="#carousel-example-generic" data-slide-to="0" >
+			    	<img src="{% static 'images/bubble_chart.jpg'%}" class="basic_chart_image"></img>
+			    </li>
+			    <li data-target="#carousel-example-generic" data-slide-to="1" >
+			    	<img src="{% static 'images/column_chart.jpg'%}" class="basic_chart_image"></img>
+			    </li>
+			    <li data-target="#carousel-example-generic" data-slide-to="2" >
+			    	<img src="{% static 'images/table.jpg'%}" class="basic_chart_image table_img"></img>
+			    </li>
+			  </ol>
+			
+			  <div class="carousel-inner">
+			    <div class="item active">
+			    	<div class="panel panel-default">
+						<div class="panel-body">
+							<div id="album_bubble" class="height390"></div>
+						</div>
+					</div>
+			    </div>
+			    <div id="line_item" class="item active">
+			    	<div class="panel panel-default">
+						<div class="panel-body">
+							<div id="album_column" class="height390"></div>
+						</div>
+					</div>
+			    </div>
+			    <div id="table_item" class="item active">
+			    	<div class="panel panel-default">
+						<div class="panel-body">
+							<div id="album_table" class="height390" style="overflow:auto"></div>
+						</div>
+					</div>
+			    </div>
+			  </div>
+			  
+			</div>
+
+			
+		</div>
+
+		<div id="groups_container"
+			class="col-lg-9 col-md-9 col-sm-9 col-xs-9" style="padding-top:125px">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div id="groups" class="height390"></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="area_container" class="col-lg-9 col-md-9 col-sm-9 col-xs-9"style="padding-top:125px">
+		
+			<div id="places_container"
+				class="panel panel-default col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<div class="panel-body">
+					<div class="heading main">Places Visited Recently</div>
+					<div id="places" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 height390"></div>
+				</div>
+			</div>
+			
+			<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+			
+			<div id="location_container"
+				class="panel panel-default col-lg-5 col-md-5 col-sm-5 col-xs-5">
+				<div class="panel-body height390">
+					<div class="heading main">Hometown & Location</div>
+					<div id="hometown" class="analytics_content">
+						<div id="home" class="city_name"></div>
+						<div id="home_desc" class="city_desc"></div>
+						<div id="home_talking_about" class="city_count"></div>
+					</div>
+					<div id="location" class="analytics_content">
+						<div id="loc" class="city_name"></div>
+						<div id="loc_desc" class="city_desc"></div>
+						<div id="loc_talking_about" class="city_count"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 sidebar-right panel panel-default">
+		
+		</div>
+	</div>
+	<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 sidebar" id="sidebar_div">
+
+		<a href="#" data-toggle="tooltip" data-placement="left" title="Basic Info">
+			<img id="info_img" 
+				src="{% static 'images/info_gray.png'%}" class="basic_image mb"
+				data-img="/static/images/info">
+			</img>
+		</a></br>
+		<a href="#post_container" data-toggle="tooltip" data-placement="left" title="Posts">
+			<img id="post_img" 
+				src="{% static 'images/posts_gray.png'%}" class="basic_image mb"
+				data-img="/static/images/posts">
+			</img>
+		</a></br>
+		<a href="#album_container" data-toggle="tooltip" data-placement="left" title="Albums">
+			<img id="album_img" 
+				src="{% static 'images/posts_gray.png'%}" class="basic_image mb"
+				data-img="/static/images/posts">
+			</img>
+		</a></br>
+		<a href="#groups_container" data-toggle="tooltip" data-placement="left" title="Groups">
+			<img id="group_img" 
+				src="{% static 'images/group_gray.png'%}" class="basic_image mb"
+				data-img="/static/images/group">
+			</img>
+		</a></br>
+		<a href="#area_container" data-toggle="tooltip" data-placement="left" title="Location">
+			<img id="location_img" 
+				src="{% static 'images/location_gray.png'%}" class="basic_image mb"
+				data-img="/static/images/location">
+			</img>
+		</a></br>
+	
+	</div>
+	
+</div>
+{% endblock %}
